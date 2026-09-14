@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { SkilloopzLogo } from "@/components/branding/skilloop-logo";
 
 const navLinks = [
-  { label: "Programs", href: "/#programs" },
+  { label: "Programs", href: "/courses" },
   { label: "Learning Path", href: "/#pathway" },
   { label: "Mentors", href: "/#mentors" },
   { label: "Study Spot", href: "/#study-spot" },

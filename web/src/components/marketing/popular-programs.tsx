@@ -138,7 +138,7 @@ export function PopularPrograms() {
         </div>
         <div className="mt-8 flex justify-center">
           <Link
-            href="/programs"
+            href="/courses"
             className="group inline-flex items-center gap-3 text-sm font-semibold text-white/75 transition hover:text-white"
           >
             View All Programs{" "}

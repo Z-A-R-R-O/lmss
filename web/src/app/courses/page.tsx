@@ -1,27 +1,17 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { PublicLayout } from "@/components/layout/public-layout";
 import { CoursesContent } from "@/components/courses/courses-content";
-import { buildPageMetadata, getGlobalSeoSettings } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const global = await getGlobalSeoSettings();
-  return buildPageMetadata(
-    undefined,
-    { title: "Courses", description: "Browse our catalog of adaptive courses" },
-    global,
-  );
-}
+export const metadata: Metadata = {
+  title: "Programs | skilloopz",
+  description:
+    "Explore practical, mentor-led skilloopz programs built for your next career move.",
+};
 
-export default async function CoursesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ tag?: string }>;
-}) {
-  const { tag } = await searchParams;
-
+export default function CoursesPage() {
   return (
     <PublicLayout>
-      <CoursesContent initialTag={tag} />
+      <CoursesContent />
     </PublicLayout>
   );
 }
