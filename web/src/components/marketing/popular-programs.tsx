@@ -19,8 +19,6 @@ export function PopularPrograms() {
     program.programGroups.includes(category),
   );
 
-  useEffect(() => setActiveIndex(0), [category]);
-
   useEffect(() => {
     if (paused || reduceMotion || programs.length < 2) return;
     const interval = window.setInterval(
@@ -34,6 +32,11 @@ export function PopularPrograms() {
     setActiveIndex(
       (index) => (index + direction + programs.length) % programs.length,
     );
+  };
+
+  const selectCategory = (nextCategory: string) => {
+    setCategory(nextCategory);
+    setActiveIndex(0);
   };
 
   return (
@@ -58,7 +61,7 @@ export function PopularPrograms() {
               <button
                 key={item}
                 type="button"
-                onClick={() => setCategory(item)}
+                onClick={() => selectCategory(item)}
                 className={`relative shrink-0 rounded-full border px-4 py-2.5 text-sm font-semibold transition-colors ${active ? "border-fuchsia-300/40 text-white" : "border-white/10 bg-white/[.025] text-white/55 hover:border-white/25 hover:text-white"}`}
               >
                 {active && (
@@ -79,7 +82,7 @@ export function PopularPrograms() {
           initial={reduceMotion ? false : { opacity: 0, x: 28, scale: 0.985 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
-          className="program-showcase-frame relative mt-10 h-[390px] sm:h-[430px]"
+          className="program-showcase-frame relative mt-10 h-[390px] outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-200/70 focus-visible:ring-offset-4 focus-visible:ring-offset-[#05060d] sm:h-[430px]"
           role="region"
           aria-label="Featured course showcase"
           tabIndex={0}
@@ -108,7 +111,6 @@ export function PopularPrograms() {
               active={index === activeIndex}
               offset={ringOffset(index, activeIndex, programs.length)}
               program={program}
-              onSelect={() => setActiveIndex(index)}
               reduceMotion={Boolean(reduceMotion)}
             />
           ))}
@@ -155,13 +157,11 @@ export function PopularPrograms() {
 function ShowcaseCard({
   active,
   offset,
-  onSelect,
   program,
   reduceMotion,
 }: {
   active: boolean;
   offset: number;
-  onSelect: () => void;
   program: (typeof marketingPrograms)[number];
   reduceMotion: boolean;
 }) {
@@ -191,7 +191,6 @@ function ShowcaseCard({
       <div className="-translate-x-1/2">
         <motion.article
           layout
-          onClick={onSelect}
           className={`program-showcase-card group relative cursor-pointer overflow-hidden rounded-[26px] border bg-[#090a13] ${physicalWidth} ${active ? "border-fuchsia-200/35 shadow-[0_24px_70px_rgba(109,58,215,.28)]" : "border-white/10"}`}
           animate={{
             scale: active ? 1 : side ? 0.84 : 0.76,
@@ -210,6 +209,11 @@ function ShowcaseCard({
                 }
           }
         >
+          <Link
+            href={`/programs/${program.slug}`}
+            aria-label={`View ${program.title} program`}
+            className="absolute inset-0 z-20 rounded-[26px] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-fuchsia-100"
+          />
           <div className="relative h-[350px] sm:h-[390px]">
             <Image
               src={program.coverImage}
@@ -240,13 +244,9 @@ function ShowcaseCard({
                   <p className="mt-4 text-xs font-medium tracking-[.08em] text-white/55">
                     {program.modules} · {program.duration} · Certificate
                   </p>
-                  <Link
-                    href={`/programs/${program.slug}`}
-                    onClick={(event) => event.stopPropagation()}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white"
-                  >
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
                     View Program <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </span>
                 </>
               ) : (
                 <p className="text-white/56 mt-3 line-clamp-2 max-w-sm text-sm leading-5">
