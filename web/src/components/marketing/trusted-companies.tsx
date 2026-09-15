@@ -3,11 +3,23 @@ import Image from "next/image";
 const companies = [
   { name: "Google", logo: "/images/company-logos/google.svg" },
   { name: "Microsoft", logo: "/images/company-logos/microsoft.svg" },
-  { name: "Amazon", logo: "/images/company-logos/amazon.svg" },
+  {
+    name: "Amazon",
+    logo: "/images/company-logos/amazon.svg",
+    tone: "trusted-company-logo--amazon",
+  },
   { name: "IBM", logo: "/images/company-logos/ibm.svg" },
   { name: "Adobe", logo: "/images/company-logos/adobe.svg" },
-  { name: "Tesla", logo: "/images/company-logos/tesla.svg" },
-  { name: "Meta", logo: "/images/company-logos/meta.svg" },
+  {
+    name: "Tesla",
+    logo: "/images/company-logos/tesla.svg",
+    tone: "trusted-company-logo--tesla",
+  },
+  {
+    name: "Meta",
+    logo: "/images/company-logos/meta.svg",
+    tone: "trusted-company-logo--meta",
+  },
 ];
 
 function CompanyMarks({ hidden = false }: { hidden?: boolean }) {
@@ -18,7 +30,7 @@ function CompanyMarks({ hidden = false }: { hidden?: boolean }) {
           <span className="trusted-company-logo-wrap">
             <Image
               alt={`${company.name} logo`}
-              className="trusted-company-logo"
+              className={`trusted-company-logo ${company.tone ?? ""}`}
               fill
               sizes="180px"
               src={company.logo}

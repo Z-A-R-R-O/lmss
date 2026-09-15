@@ -1024,6 +1024,21 @@
     object-fit: contain;
   }
 
+  .trusted-company-logo--amazon {
+    filter: invert(67%) sepia(89%) saturate(974%) hue-rotate(359deg)
+      brightness(102%) contrast(103%);
+  }
+
+  .trusted-company-logo--tesla {
+    filter: invert(18%) sepia(91%) saturate(4203%) hue-rotate(346deg)
+      brightness(94%) contrast(93%);
+  }
+
+  .trusted-company-logo--meta {
+    filter: invert(31%) sepia(89%) saturate(2368%) hue-rotate(203deg)
+      brightness(92%) contrast(102%);
+  }
+
   .trusted-company-logo-wrap {
     position: relative;
     display: block;
